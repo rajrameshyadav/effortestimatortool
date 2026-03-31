@@ -1092,7 +1092,6 @@ textarea.export-area {
     <button class="btn" style="background:#0ea5e9;color:#fff;" onclick="openTeamEffort()">👥 Team Effort View</button>
     <button class="btn" style="background:#0f766e;color:#fff;border:1px solid #0d9488;" onclick="saveDraft()" title="Save a snapshot to History">💾 Save Draft</button>
     <button class="btn" id="history-btn" style="background:#334155;color:#fff;border:1px solid #475569;position:relative;" onclick="openHistory()">🕐 History<span id="history-badge" style="display:none;position:absolute;top:-5px;right:-5px;background:#f43f5e;color:#fff;font-size:0.55rem;font-weight:800;border-radius:10px;padding:1px 5px;font-family:'Space Mono',monospace;"></span></button>
-    <button class="btn" style="background:#7c3aed;color:#fff;border:1px solid #6d28d9;" onclick="openCommitSnapshot()" title="Sprint commitment one-pager for sign-off">📌 Commit</button>
     <button class="btn" style="background:#475569;color:#fff;border:1px solid #64748b;" onclick="openUserGuide()">📖 User Guide</button>
   </div>
 </header>
@@ -1134,31 +1133,7 @@ textarea.export-area {
         <div class="sum-row"><span class="sum-label">Total Hours</span><span class="sum-val w" id="sum-total">0</span></div>
         <div class="sum-row"><span class="sum-label">Eff. Hrs (6h/day)</span><span class="sum-val" id="sum-eff">0</span></div>
         <div class="sum-row"><span class="sum-label">Story Points</span><span class="sum-val p" id="sum-pts">0</span></div>
-        <div class="sum-row" title="Story Points x 7h (org standard)"><span class="sum-label">SP Hours (×7h)</span><span class="sum-val p" id="sum-sphours">0</span></div>
-        <div class="sum-row" title="Tasks with a known blocker or risk"><span class="sum-label">Blocked Tasks</span><span class="sum-val" id="sum-blocked" style="color:var(--muted)">0</span></div>
         <div class="sum-row"><span class="sum-label">Tasks</span><span class="sum-val" id="sum-count">0</span></div>
-        <div id="variance-row" style="display:none;border-top:1px solid var(--border);margin-top:6px;padding-top:6px;">
-          <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px;">Hrs vs SP Alignment</div>
-          <div id="variance-bar-wrap" style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
-            <div style="flex:1;background:var(--surface3);border-radius:3px;height:4px;overflow:hidden;"><div id="variance-bar" style="height:100%;border-radius:3px;width:50%;"></div></div>
-            <span id="variance-pct" style="font-size:0.72rem;font-weight:700;font-family:var(--mono);min-width:38px;text-align:right;"></span>
-          </div>
-          <div id="variance-label" style="font-size:0.65rem;color:var(--muted);"></div>
-        </div>
-        <div id="confidence-wrap" style="display:none;border-top:1px solid var(--border);margin-top:6px;padding-top:8px;">
-          <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px;">Estimation Confidence</div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="flex:1;background:var(--surface3);border-radius:4px;height:7px;overflow:hidden;"><div id="conf-bar" style="height:100%;border-radius:4px;transition:width 0.4s;"></div></div>
-            <span id="conf-pct" style="font-size:0.82rem;font-weight:800;font-family:var(--mono);min-width:34px;text-align:right;"></span>
-          </div>
-          <div id="conf-label" style="font-size:0.68rem;color:var(--muted);margin-top:3px;"></div>
-        </div>
-        <div id="capacity-bar" style="display:none;border-top:1px solid var(--border);margin-top:6px;padding-top:8px;">
-          <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;">Sprint Capacity</div>
-          <div id="cap-dev-row" style="margin-bottom:5px;"></div>
-          <div id="cap-qa-row" style="margin-bottom:2px;"></div>
-          <div id="cap-verdict"></div>
-        </div>
       </div>
     </div>
     <div class="sidebar-section">
@@ -1171,14 +1146,7 @@ textarea.export-area {
       </div>
     </div>
     <div class="sidebar-section">
-      <span class="sidebar-label">Sprint Breakdown</span>
-      <div class="summary-card" style="padding:10px 13px;">
-        <div id="velocity-result" style="font-size:0.78rem;color:var(--muted);margin-bottom:10px;">Add tasks to see sprint breakdown</div>
-        <div id="sprint-breakdown-panel" style="font-size:0.75rem;"></div>
-      </div>
-    <div class="sidebar-section">
       <span class="sidebar-label">Story Points Guide</span>
-      <div style="background:var(--accent)14;border:1px solid var(--accent)44;border-radius:8px;padding:7px 11px;margin-bottom:8px;text-align:center;"><div style="font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.5px;">Organisation Standard</div><div style="font-size:0.9rem;font-weight:800;color:var(--accent);font-family:var(--mono);">1 SP = 7 hours</div></div>
       <div class="summary-card">
         <div class="sum-row"><span class="sum-label" style="font-size:0.63rem">Very Low</span><span class="sum-val" style="font-size:0.68rem">1 pt</span></div>
         <div class="sum-row"><span class="sum-label" style="font-size:0.63rem">Low</span><span class="sum-val" style="font-size:0.68rem">2–3 pts</span></div>
@@ -1261,22 +1229,6 @@ textarea.export-area {
   </div>
 </div>
 
-
-<!-- COMMIT SNAPSHOT MODAL -->
-<div class="modal-overlay hidden" id="snapshot-modal">
-  <div class="modal modal-lg" style="max-width:680px;max-height:92vh;display:flex;flex-direction:column;">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;margin-bottom:14px;">
-      <div><h2 style="font-size:1rem;font-weight:800;">📌 Sprint Commitment Snapshot</h2>
-      <p class="modal-sub" style="margin:2px 0 0;">One-page summary for standup, sign-off, or Confluence.</p></div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-ghost btn-sm" onclick="printSnapshot()">🖨 Print</button>
-        <button class="btn btn-ghost btn-sm" onclick="closeAllModals()">✕ Close</button>
-      </div>
-    </div>
-    <div id="snapshot-content" style="flex:1;overflow-y:auto;"></div>
-  </div>
-</div>
-
 <!-- HISTORY MODAL -->
 <div class="modal-overlay hidden" id="history-modal">
   <div class="modal modal-lg" style="max-width:820px;max-height:88vh;display:flex;flex-direction:column;">
@@ -1343,14 +1295,14 @@ const CATALOG = [
   {key:'FE-011',cat:'FE',catLabel:'Frontend (Angular)',change:'Create New',severity:'Medium',dev:18,qa:11,uat:7,pts:5,team:'Development / Designers',title:'New Widget – Simple Table (No Visualisation)',sub:'Widget / Table',desc:'Create a new Angular widget displaying data in a simple table format. No charts or data visualisation. Includes pagination, sorting, and API integration.'},
   {key:'FE-012',cat:'FE',catLabel:'Frontend (Angular)',change:'Create New',severity:'High',dev:32,qa:19,uat:13,pts:8,team:'Development / Designers',title:'New Widget – Table with Data Visualisation',sub:'Widget / Chart',desc:'Create a new Angular widget with both a data table and chart/graph visualisation (bar, line, pie, etc.). Includes API integration, dynamic data binding, and responsive layout.'},
   {key:'FE-013',cat:'FE',catLabel:'Frontend (Angular)',change:'Modifying Existing',severity:'Low',dev:10,qa:6,uat:3,pts:3,team:'Development / Designers',title:'Modify Existing Component',sub:'Component Modification',desc:'Modify an existing Angular component — updating logic, layout, form fields, or bindings. Covers medium-scope changes not impacting full API contract.'},
-  {key:'FE-014',cat:'FE',catLabel:'Frontend (Angular)',change:'Create New',severity:'Low',dev:10,qa:6,uat:3,pts:3,team:'DevOps / Middleware',title:'Authentication Flow – Login Integration',sub:'Authentication',desc:'Implement authentication flow using Login. Includes login redirect, token handling, session management, and Angular route guards integrated with the Login identity provider.'},
+  {key:'FE-014',cat:'FE',catLabel:'Frontend (Angular)',change:'Create New',severity:'Low',dev:10,qa:6,uat:3,pts:3,team:'DevOps / Middleware',title:'Authentication Flow – Habile Integration',sub:'Authentication',desc:'Implement authentication flow using Habile. Includes login redirect, token handling, session management, and Angular route guards integrated with the Habile identity provider.'},
   // BE
   {key:'BE-001',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Very Low',dev:3,qa:2,uat:1,pts:1,team:'—',title:'Simple Utility / Helper Method',sub:'Simple Implementation',desc:'Write a simple utility or helper method in Java. No database calls, no external service dependency, unit tested.'},
   {key:'BE-002',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Low',dev:8,qa:5,uat:3,pts:3,team:'Development',title:'CRUD REST API Endpoints',sub:'CRUD Operations',desc:'Create standard CRUD REST endpoints with Spring Boot Controller, Service, Repository layers. JUnit/Mockito unit tests.'},
   {key:'BE-003',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Medium',dev:18,qa:11,uat:7,pts:5,team:'Middleware / Development',title:'New Business Logic Service',sub:'Service Layer',desc:'Implement Spring service with moderate business logic, validation, exception handling, and 80%+ unit test coverage.'},
   {key:'BE-004',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'High',dev:32,qa:19,uat:13,pts:8,team:'Middleware / DevOps',title:'Complex Microservice API',sub:'Microservice',desc:'Build new microservice: REST API, business logic, DB integration, exception handling, security config, integration tests.'},
   {key:'BE-005',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Very High',dev:56,qa:34,uat:22,pts:13,team:'DevOps / Middleware / Development',title:'Microservice with Kafka/MQ Messaging',sub:'Microservice + Messaging',desc:'Microservice consuming/producing Kafka or MQ topics with retry logic, dead-letter queue, business logic, and full test coverage.'},
-  {key:'BE-006',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Medium',dev:16,qa:10,uat:6,pts:5,team:'DevOps / Middleware',title:'Authentication & Authorisation – Login Integration',sub:'Security',desc:'Implement authentication and authorisation using Login identity provider. Includes token validation, role-based access control (RBAC), Spring Security configuration, and Login-specific integration patterns.'},
+  {key:'BE-006',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Create New',severity:'Medium',dev:16,qa:10,uat:6,pts:5,team:'DevOps / Middleware',title:'Authentication & Authorisation – Habile Integration',sub:'Security',desc:'Implement authentication and authorisation using Habile identity provider. Includes token validation, role-based access control (RBAC), Spring Security configuration, and Habile-specific integration patterns.'},
   {key:'BE-007',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Modifying Existing',severity:'Low',dev:5,qa:3,uat:2,pts:2,team:'—',title:'Minor API Response Modification',sub:'API Modification',desc:'Add/remove 1–3 fields in existing REST API response or request. Minor service/model changes, no breaking contract changes.'},
   {key:'BE-008',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Modifying Existing',severity:'Medium',dev:14,qa:9,uat:5,pts:5,team:'Development / Middleware',title:'Modify Service with DB Impact',sub:'Service Modification',desc:'Modify existing service impacting DB queries, data models, or downstream service calls. Includes regression testing.'},
   {key:'BE-009',cat:'BE',catLabel:'Backend (Spring Boot)',change:'Modifying Existing',severity:'High',dev:26,qa:16,uat:10,pts:8,team:'Development',title:'Major Microservice Refactoring',sub:'Refactoring',desc:'Overhaul existing microservice: business logic changes, API contract changes, DB schema changes, full regression testing.'},
@@ -1421,8 +1373,6 @@ const CATALOG = [
   {key:'QA-006',cat:'QA',catLabel:'QA / Testing',change:'Create New',severity:'Low',dev:2,qa:8,uat:0,pts:2,team:'QA',title:'Code Review & PR Review',sub:'Code Review',desc:'Review pull requests for code quality, standards adherence, test coverage, and security issues.'},
 ];
 
-const SP_TO_HOURS = 7; // 1 story point = 7 working hours (org standard)
-const PROD_HRS    = 7; // productive hours per 8-hour working day
 const CAT_COLORS={BPA:'#ec4899',PO:'#06b6d4',FE:'#4f8ef7',BE:'#22d3a5',CLOUD:'#f59e0b',MW:'#fb923c',DB:'#84cc16',QA:'#a78bfa',DS:'#f472b6',UX:'#e879f9',GL:'#10b981',Custom:'#f43f5e'};
 const SEV_CODE={'Very Low':'VL','Low':'L','Medium':'M','High':'H','Very High':'VH'};
 
@@ -1660,15 +1610,6 @@ function renderRequirementView(){
             <button class="btn btn-danger btn-sm" onclick="clearAll()">🗑 Clear</button>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;flex-wrap:wrap;">
-          <span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Sort:</span>
-          <button class="btn btn-ghost btn-sm" onclick="sortRows('complexity')" title="High→Low complexity">⬇ Complexity</button>
-          <button class="btn btn-ghost btn-sm" onclick="sortRows('pts')"        title="High→Low story points">⬇ Pts</button>
-          <button class="btn btn-ghost btn-sm" onclick="sortRows('hours')"      title="High→Low total hours">⬇ Hours</button>
-          <button class="btn btn-ghost btn-sm" onclick="sortRows('tag')"        title="Group by tag label">🏷 By Tag</button>
-          <button class="btn btn-ghost btn-sm" onclick="sortRows('cat')"        title="Group by category">📦 By Category</button>
-          <button class="btn btn-ghost btn-sm" style="margin-left:auto;color:var(--muted);" onclick="sortRows('original')" title="Restore order">↺ Reset</button>
-        </div>
         <div class="est-table-wrap">
           <table>
             <thead><tr>
@@ -1686,9 +1627,6 @@ function renderRequirementView(){
               <th style="text-align:right">UAT</th>
               <th style="text-align:right">Total</th>
               <th style="text-align:right">Pts</th>
-              <th style="text-align:center;min-width:60px;" title="Task risk: based on complexity + blockers">Risk</th>
-              <th style="min-width:90px;color:var(--cyan);" title="Optional label to group tasks (e.g. Phase 1, MVP)">🏷 Tag</th>
-              <th style="min-width:130px;color:var(--red);" title="Known blockers or risks for this task">⚠ Blockers</th>
               <th></th>
             </tr></thead>
             <tbody id="est-body"></tbody>
@@ -1779,7 +1717,7 @@ function renderTable(){
   const tbody=document.getElementById('est-body');if(!tbody)return;
   const rows=getActiveRows();
   const ce=document.getElementById('est-count');if(ce)ce.textContent=rows.length+' tasks';
-  if(rows.length===0){tbody.innerHTML=`<tr><td colspan="18"><div class="empty-state"><div class="icon">🎯</div><p>No tasks yet. Pick from the catalog or add a custom task above.</p></div></td></tr>`;updateSummary();return;}
+  if(rows.length===0){tbody.innerHTML=`<tr><td colspan="15"><div class="empty-state"><div class="icon">🎯</div><p>No tasks yet. Pick from the catalog or add a custom task above.</p></div></td></tr>`;updateSummary();return;}
   tbody.innerHTML=rows.map((r,i)=>{
     const color=CAT_COLORS[r.cat]||'#a78bfa';
     return `<tr draggable="true" data-idx="${i}"
@@ -1802,9 +1740,6 @@ function renderTable(){
       <td class="num-cell"><input type="number" value="${r.uat}" onchange="updateRow(${i},'uat',+this.value)" style="max-width:50px;text-align:right;color:var(--yellow)"/></td>
       <td class="total-cell" id="tot-${i}">${r.dev+r.qa+r.uat}</td>
       <td class="pts-cell"><input type="number" value="${r.pts}" onchange="updateRow(${i},'pts',+this.value)" style="max-width:46px;text-align:right;color:#a78bfa"/></td>
-      <td style="text-align:center;">${getRiskChip(r.severity,r.blockers)}</td>
-      <td><input value="${escHtml(r.tag||'')}" onchange="updateRow(${i},'tag',this.value)" placeholder="e.g. MVP, Phase 1…" style="min-width:85px;font-size:0.72rem;color:var(--cyan);border-color:${r.tag?'var(--cyan)33':'transparent'};background:${r.tag?'var(--cyan)08':'transparent'};"/></td>
-      <td><input value="${escHtml(r.blockers||'')}" onchange="updateRow(${i},'blockers',this.value)" placeholder="e.g. Awaiting API spec…" style="min-width:125px;font-size:0.73rem;border-color:${r.blockers?'var(--red)44':'transparent'};background:${r.blockers?'var(--red)08':'transparent'};" title="Known blockers or risks"/></td>
       <td><button class="btn-icon" onclick="removeRow(${i})">✕</button></td>
     </tr>`;
   }).join('');
@@ -1868,48 +1803,7 @@ function updateSummary(){
   const rows=getActiveRows();
   const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0);
   const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  const spHours = pts * SP_TO_HOURS;
-  const blockedCount = rows.filter(r=>r.blockers&&r.blockers.trim()).length;
-  s('sum-dev',dev);s('sum-qa',qa);s('sum-uat',uat);s('sum-total',tot);
-  s('sum-eff',Math.round(tot*(8/PROD_HRS)*10)/10);s('sum-pts',pts);s('sum-count',rows.length);
-  s('sum-sphours',spHours);s('sum-blocked',blockedCount);
-  const be=document.getElementById('sum-blocked');if(be)be.style.color=blockedCount>0?'var(--red)':'var(--muted)';
-
-  // Sprint Capacity — hours-based auto sprint suggestion
-  const _req=getActiveReq();const _capBar=document.getElementById('capacity-bar');
-  if(_req&&rows.length>0&&_capBar){
-    _capBar.style.display='block';
-    const cap=calcCapacity(_req,eff);
-    const col=cap.fits?'var(--green)':cap.pct>150?'var(--red)':'var(--yellow)';
-    const dr=document.getElementById('cap-dev-row');
-    if(dr)dr.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px;"><span style="color:var(--text2)">Eff. hrs needed</span><span style="font-weight:700;color:var(--text)">${eff}h</span></div><div style="display:flex;justify-content:space-between;font-size:0.72rem;"><span style="color:var(--text2)">Sprint capacity</span><span style="font-weight:700;color:var(--accent)">${cap.sprintHours}h</span></div>`;
-    const qr=document.getElementById('cap-qa-row');
-    if(qr)qr.innerHTML=`<div style="background:var(--surface3);border-radius:3px;height:4px;margin:5px 0;overflow:hidden;"><div style="width:${Math.min(cap.pct,100)}%;height:100%;background:${col};border-radius:3px;"></div></div>`;
-    const vr=document.getElementById('cap-verdict');
-    if(vr){vr.style.cssText=`background:${col}18;color:${col};border:1px solid ${col}44;margin-top:4px;padding:5px 8px;border-radius:6px;text-align:center;font-weight:700;font-size:0.72rem;`;
-      vr.textContent=cap.fits?'✓ Fits 1 sprint':`⚡ ~${cap.sprintsNeeded} sprint${cap.sprintsNeeded!==1?'s':''} needed`;}
-  } else if(_capBar){_capBar.style.display='none';}
-
-  // Confidence Score
-  if(_req&&rows.length>0){const conf=calcConfidence(rows,_req);updateConfidenceUI(conf);}
-  else{const cw=document.getElementById('confidence-wrap');if(cw)cw.style.display='none';}
-
-  // Velocity
-  updateVelocity();
-  // Sprint breakdown
-  updateSprintBreakdown();
-  // Effort variance
-  const _varRow=document.getElementById('variance-row');
-  if(_varRow&&rows.length>0&&spHours>0){
-    _varRow.style.display='block';
-    const variance=Math.round(Math.abs(tot-spHours)/Math.max(tot,spHours)*100);
-    const aligned=variance<=20;
-    const col=variance<=20?'var(--green)':variance<=40?'var(--yellow)':'var(--red)';
-    const vBar=document.getElementById('variance-bar');if(vBar){vBar.style.background=col;vBar.style.width=Math.min(100-variance,100)+'%';}
-    const vPct=document.getElementById('variance-pct');if(vPct){vPct.textContent=(variance>0?'+':'')+variance+'%';vPct.style.color=col;}
-    const vLbl=document.getElementById('variance-label');
-    if(vLbl)vLbl.textContent=aligned?'✓ Hours align with story points':tot>spHours?'Raw hours exceed SP estimate — review points':'SP estimate exceeds raw hours — review tasks';
-  } else if(_varRow){_varRow.style.display='none';}
+  s('sum-dev',dev);s('sum-qa',qa);s('sum-uat',uat);s('sum-total',tot);s('sum-eff',Math.round(tot*(8/6)*10)/10);s('sum-pts',pts);s('sum-count',rows.length);
 }
 function updateGlobalSummary(){
   const allDev=requirements.reduce((s,r)=>s+r.rows.reduce((ss,row)=>ss+Number(row.dev||0),0),0);
@@ -1925,7 +1819,7 @@ function updateGlobalSummary(){
 function addFromCatalog(key){
   const req=getActiveReq();if(!req){toast('Create a requirement first.','warn');return;}
   const item=[...CATALOG,...customCatalog].find(c=>c.key===key);if(!item)return;
-  req.rows.push({jira:'',desc:item.title,cat:item.cat,catLabel:item.catLabel,type:item.catLabel,change:item.change,severity:item.severity,key:item.key,dev:item.dev,qa:item.qa,uat:item.uat,pts:item.pts,team:item.team||'—',isCustom:!!item.isCustom,blockers:'',tag:''});
+  req.rows.push({jira:'',desc:item.title,cat:item.cat,catLabel:item.catLabel,type:item.catLabel,change:item.change,severity:item.severity,key:item.key,dev:item.dev,qa:item.qa,uat:item.uat,pts:item.pts,team:item.team||'—',isCustom:!!item.isCustom});
   renderTable();renderCatalog();updateGlobalSummary();
   toast('✓ '+item.title+' added');
 }
@@ -1983,7 +1877,7 @@ function addCustomToCatalog(alsoAddToSheet){
       req.rows.push({jira:'',desc:newItem.title,cat:newItem.cat,catLabel:newItem.catLabel,
         type:newItem.catLabel,change:newItem.change,severity:newItem.severity,
         key:newItem.key,dev:newItem.dev,qa:newItem.qa,uat:newItem.uat,pts:newItem.pts,
-        team:newItem.team,isCustom:true,blockers:'',tag:''});
+        team:newItem.team,isCustom:true});
       renderTable();updateGlobalSummary();
     }
   }
@@ -2097,7 +1991,7 @@ const TEAM_BUCKET={
   'Dynatrace Team':'DevOps & Middleware',
   'Cloud':'DevOps & Middleware',
   'Security':'DevOps & Middleware',
-  'Login Team':'DevOps & Middleware',
+  'Habile Team':'DevOps & Middleware',
   'Multiple Teams':'Multiple Teams',
   'Data':'Development',
   'API':'Development',
@@ -2125,7 +2019,7 @@ function tip(title,body,formula){
 function openReport(){
   const req=getActiveReq();if(!req){toast('No requirement selected.');return;}
   const rows=req.rows;
-  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/PROD_HRS)*10)/10;
+  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/6)*10)/10;
 
   // ── Category breakdown by cat code ────────────────────────────────────────
   const catMap={};
@@ -2192,10 +2086,7 @@ function openReport(){
       <div class="kpi-card"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Effective Hours</strong>Adjusted calendar hours accounting for the fact that only 6 of every 8 working hours are productive — the other 2h are lost to meetings, standups, and context switching. Dividing by 8 then gives true calendar days.<br/><code>Total × (8 ÷ 6) = Total × 1.33</code></div><div class="kpi-val" style="color:var(--muted)">${eff}</div><div class="kpi-label">Eff. Hours</div><div class="kpi-formula">Total × (8÷6)</div></div>
       <div class="kpi-card"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Story Points</strong>Sum of all story points across every task. Follows the Fibonacci scale: 1 (Very Low) → 2–3 (Low) → 5–8 (Medium) → 8–13 (High) → 13–21 (Very High).<br/><code>Σ pts per task</code></div><div class="kpi-val" style="color:#a78bfa">${pts}</div><div class="kpi-label">Story Points</div><div class="kpi-formula">Σ pts (Fibonacci)</div></div>
       <div class="kpi-card"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Total Tasks</strong>Number of individual tasks added to this requirement's estimation sheet.<br/><code>Count of task rows</code></div><div class="kpi-val" style="color:var(--cyan)">${rows.length}</div><div class="kpi-label">Total Tasks</div><div class="kpi-formula">count of rows</div></div>
-      <div class="kpi-card"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Estimated Days</strong>Calendar days: Effective Hours ÷ 8 (standard 8-hour working day), rounded up. Eff. Hours accounts for 7 productive hrs/day.<br/><code>Eff. Hours ÷ 8 (rounded up)</code></div><div class="kpi-val" style="color:var(--green)">${Math.ceil(eff/8)}</div><div class="kpi-label">Est. Days</div><div class="kpi-formula">Eff. hrs ÷ 8</div></div>
-      <div class="kpi-card" style="border-color:var(--yellow)44"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Risk-Buffered Hours</strong>Effective Hours plus a 20% contingency buffer for unexpected complexity, blockers, scope creep, and unexpected complexity. Use this as your safe commitment number to stakeholders.<br/><code>Eff. Hours × 1.20</code></div><div class="kpi-val" style="color:var(--yellow)">${Math.round(eff*1.20*10)/10}</div><div class="kpi-label">Buffered Hrs</div><div class="kpi-formula">Eff. × 1.20</div></div>
-      <div class="kpi-card" style="border-color:#a78bfa44"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>SP-Equivalent Hours</strong>Total story points converted to working hours at the org standard of 1 SP = ${SP_TO_HOURS}h. Use this to cross-check whether raw hours and story points are consistent with each other.<br/><code>Story Points × ${SP_TO_HOURS}h</code></div><div class="kpi-val" style="color:#a78bfa">${pts*SP_TO_HOURS}</div><div class="kpi-label">SP Hours</div><div class="kpi-formula">pts × ${SP_TO_HOURS}h</div></div>
-      <div class="kpi-card" style="border-color:${rows.filter(r=>r.blockers&&r.blockers.trim()).length>0?'var(--red)44':'var(--border)'}"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Blocked Tasks</strong>Tasks with a known blocker, dependency, or risk. These should be resolved before sprint start to avoid mid-sprint delays.<br/><code>count(tasks where blockers ≠ empty)</code></div><div class="kpi-val" style="color:${rows.filter(r=>r.blockers&&r.blockers.trim()).length>0?'var(--red)':'var(--muted)'}">${rows.filter(r=>r.blockers&&r.blockers.trim()).length}</div><div class="kpi-label">Blocked</div><div class="kpi-formula">tasks w/ blockers</div></div>
+      <div class="kpi-card"><div class="kpi-tooltip-icon">?</div><div class="kpi-tooltip"><strong>Estimated Days</strong>Calendar days to deliver. Task hours already represent productive effort, so Effective Hours (which accounts for 6 productive hours in an 8h working day) is simply divided by 8 — a standard working day — to get calendar days.<br/><code>Eff. Hours ÷ 8 (rounded up)</code></div><div class="kpi-val" style="color:var(--green)">${Math.ceil(eff/8)}</div><div class="kpi-label">Est. Days</div><div class="kpi-formula">Eff. hrs ÷ 8</div></div>
     </div>
 
     <div class="report-section">
@@ -2258,62 +2149,13 @@ function openReport(){
       }).join('')}
     </div>`:''}
 
-    ${(()=>{
-      const blockedRows=rows.filter(r=>r.blockers&&r.blockers.trim());
-      if(!blockedRows.length) return '';
-      const buffHrs=Math.round(eff*1.20*10)/10;
-      return `<div class="report-section" style="border-color:var(--red)44;">
-        <h3 style="color:var(--red);">⚠️ Blockers &amp; Risks ${tip("Blockers","Tasks with a known blocker or dependency. Resolve before sprint start.","count: "+blockedRows.length+" of "+rows.length)}</h3>
-        <div style="font-size:0.75rem;color:var(--text2);margin-bottom:10px;">${blockedRows.length} task${blockedRows.length!==1?'s':''} flagged · Risk buffer +20% applied (${eff}h → ${buffHrs}h)</div>
-        ${blockedRows.map((r,i)=>`<div style="display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)33;${i===blockedRows.length-1?'border-bottom:none;':''}">
-          <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);background:var(--surface2);padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:1px;">${escHtml(r.key||'—')}</span>
-          <div style="flex:1;"><div style="font-size:0.82rem;font-weight:700;margin-bottom:3px;">${escHtml(r.desc)}</div>
-          <div style="font-size:0.75rem;color:var(--red);display:flex;gap:6px;"><span>⚠</span><span>${escHtml(r.blockers)}</span></div></div>
-          <span style="font-size:0.68rem;color:#a78bfa;flex-shrink:0;">${r.pts}pts</span>
-        </div>`).join('')}
-      </div>`;
-    })()}
-
-    ${getTagSection(rows)}
-    <div class="report-section">
-      <h3>🔥 Complexity Heat Map ${tip("Complexity Heat Map","Rows = categories in this requirement. Columns = complexity levels. Numbers show task count per cell — helps you see where sprint risk concentrates.","count per category × complexity")}</h3>
-      ${(()=>{
-        const sevOrder=['Very Low','Low','Medium','High','Very High'];
-        const sevCols={'Very Low':'#22d3a5','Low':'#06b6d4','Medium':'#f5a623','High':'#fb923c','Very High':'#f43f5e'};
-        const catsPresent=[...new Set(rows.map(r=>r.cat||'Custom'))];
-        if(!catsPresent.length) return '<div style="color:var(--muted);font-size:0.78rem;">No tasks yet.</div>';
-        const grid={};
-        catsPresent.forEach(c=>{grid[c]={};sevOrder.forEach(s=>{grid[c][s]=0;});});
-        rows.forEach(r=>{const c=r.cat||'Custom';const s=r.severity||'Medium';if(grid[c])grid[c][s]++;});
-        const maxVal=Math.max(1,...Object.values(grid).flatMap(r=>Object.values(r)));
-        let t='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.72rem;">';
-        t+='<thead><tr><th style="text-align:left;padding:6px 10px;font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);">Category</th>';
-        sevOrder.forEach(s=>{t+=`<th style="text-align:center;padding:6px 8px;font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:${sevCols[s]};border-bottom:1px solid var(--border);">${s}</th>`;});
-        t+='<th style="text-align:right;padding:6px 8px;font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);">Total</th></tr></thead><tbody>';
-        catsPresent.forEach(cat=>{
-          const catColor=CAT_COLORS[cat]||'#64748b';
-          const rowTotal=Object.values(grid[cat]).reduce((a,b)=>a+b,0);
-          t+=`<tr><td style="padding:7px 10px;font-weight:600;color:${catColor};white-space:nowrap;border-bottom:1px solid var(--border)22;">${escHtml(rows.find(r=>r.cat===cat)?.catLabel||cat)}</td>`;
-          sevOrder.forEach(sev=>{
-            const v=grid[cat][sev];const bg=v>0?sevCols[sev]+(v===maxVal?'55':'22'):'transparent';const col=v>0?sevCols[sev]:'var(--muted)';
-            t+=`<td style="text-align:center;padding:7px 8px;border-bottom:1px solid var(--border)22;"><span style="display:inline-block;width:28px;height:28px;line-height:28px;border-radius:6px;background:${bg};color:${col};font-weight:${v>0?'700':'400'};font-size:0.78rem;">${v||'·'}</span></td>`;
-          });
-          t+=`<td style="text-align:right;padding:7px 8px;border-bottom:1px solid var(--border)22;font-weight:700;color:var(--text2);">${rowTotal}</td></tr>`;
-        });
-        t+='</tbody></table></div>';
-        const hr=rows.filter(r=>r.severity==='High'||r.severity==='Very High');
-        if(hr.length) t+=`<div style="margin-top:10px;font-size:0.72rem;color:var(--orange);background:var(--orange)0d;border:1px solid var(--orange)33;border-radius:7px;padding:8px 12px;">⚠ ${hr.length} task${hr.length!==1?'s':''} at High or Very High complexity — validate estimates with the team before committing.</div>`;
-        return t;
-      })()}
-    </div>
-
     <div class="report-section">
       <h3>📋 Detailed Task Breakdown</h3>
       <div style="overflow-x:auto;">
         <table class="report-table">
-          <thead><tr><th>#</th><th>Jira</th><th>Task</th><th>Category</th><th>Change ${tip('Change Type','Create New / Modifying Existing / Analysis / Other.')}</th><th>Complexity ${tip('Complexity','Very Low → Very High.')}</th><th>Team ${tip('Dependent Team','Teams involved. Multiple teams separated by /.')}</th><th style="text-align:right">Dev</th><th style="text-align:right">QA</th><th style="text-align:right">UAT</th><th style="text-align:right">Total</th><th style="text-align:right">Pts</th><th style="color:var(--cyan);">Tag</th><th style="color:var(--red);">Blockers</th></tr></thead>
+          <thead><tr><th>#</th><th>Jira</th><th>Task</th><th>Category</th><th>Change ${tip('Change Type','Whether this task creates something new or modifies existing functionality. Options: Create New, Modifying Existing, Analysis, Other.')}</th><th>Complexity ${tip('Complexity','Effort complexity level used to guide story point sizing. Very Low to Very High.')}</th><th>Team ${tip('Dependent Team','Teams that need to be involved or consulted for this task. Multiple teams separated by /.')}</th><th style="text-align:right">Dev ${tip('Dev Hours','Estimated developer hours: design, coding, unit testing.','task.dev')}</th><th style="text-align:right">QA ${tip('QA Hours','Quality Assurance hours: test case writing, test execution, defect reporting.','task.qa')}</th><th style="text-align:right">UAT ${tip('UAT Hours','User Acceptance Testing hours: business stakeholder validation.','task.uat')}</th><th style="text-align:right">Total ${tip('Row Total','Sum of Dev + QA + UAT hours for this single task.','dev + qa + uat')}</th><th style="text-align:right">Pts ${tip('Story Points','Fibonacci story point estimate: 1 (Very Low), 2-3 (Low), 5 (Medium), 8 (High), 13 (Very High).','Fibonacci scale')}</th></tr></thead>
           <tbody>
-            ${rows.map((r,i)=>`<tr><td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.65rem">${i+1}</td><td style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted)">${escHtml(r.jira||'—')}</td><td style="max-width:180px">${escHtml(r.desc)}</td><td style="font-size:0.68rem;color:${CAT_COLORS[r.cat]||'var(--muted)'}">${escHtml(r.catLabel||r.type||'')}</td><td style="font-size:0.68rem">${escHtml(r.change||'')}</td><td>${r.severity?`<span class="chip chip-${SEV_CODE[r.severity]||'M'}" style="font-family:'Syne',sans-serif">${r.severity}</span>`:''}</td><td style="font-size:0.65rem;color:var(--cyan)">${escHtml(r.team||'—')}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--accent)">${r.dev}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--green)">${r.qa}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--yellow)">${r.uat}</td><td style="text-align:right;font-family:'Space Mono',monospace;font-weight:700">${r.dev+r.qa+r.uat}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:#a78bfa">${r.pts}</td><td style="font-size:0.72rem;color:${r.tag?'var(--cyan)':'var(--muted)'}">${r.tag?'<span style="background:var(--cyan)14;border:1px solid var(--cyan)33;border-radius:4px;padding:1px 6px;font-size:0.68rem;">'+escHtml(r.tag)+'</span>':'—'}</td><td style="font-size:0.72rem;color:${r.blockers&&r.blockers.trim()?'var(--red)':'var(--muted)'}">${r.blockers&&r.blockers.trim()?escHtml(r.blockers):'—'}</td></tr>`).join('')}
+            ${rows.map((r,i)=>`<tr><td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.65rem">${i+1}</td><td style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted)">${escHtml(r.jira||'—')}</td><td style="max-width:180px">${escHtml(r.desc)}</td><td style="font-size:0.68rem;color:${CAT_COLORS[r.cat]||'var(--muted)'}">${escHtml(r.catLabel||r.type||'')}</td><td style="font-size:0.68rem">${escHtml(r.change||'')}</td><td>${r.severity?`<span class="chip chip-${SEV_CODE[r.severity]||'M'}" style="font-family:'Syne',sans-serif">${r.severity}</span>`:''}</td><td style="font-size:0.65rem;color:var(--cyan)">${escHtml(r.team||'—')}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--accent)">${r.dev}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--green)">${r.qa}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:var(--yellow)">${r.uat}</td><td style="text-align:right;font-family:'Space Mono',monospace;font-weight:700">${r.dev+r.qa+r.uat}</td><td style="text-align:right;font-family:'Space Mono',monospace;color:#a78bfa">${r.pts}</td></tr>`).join('')}
             <tr style="border-top:2px solid var(--border);background:var(--surface);">
               <td colspan="7" style="padding:7px 9px;font-weight:800;font-size:0.72rem;">TOTAL ${tip("Column Totals","Sum of all task hours for each column across the entire requirement. Grand total = sum of all Dev + QA + UAT across every task.","sum all rows")}</td>
               <td style="text-align:right;font-family:'Space Mono',monospace;font-weight:800;color:var(--accent);padding:7px 9px">${dev}</td>
@@ -2327,7 +2169,7 @@ function openReport(){
       </div>
     </div>
     <div style="font-size:0.66rem;color:var(--muted);margin-top:10px;padding:9px 13px;background:var(--surface2);border-radius:7px;border-left:3px solid var(--accent)44;">
-      ⚠ Estimates are indicative. Effective Hours = Total × (8÷7) — 7 productive hrs per 8-hour working day. Est. Days = Eff. Hrs ÷ 8. Risk Buffer = Eff. Hrs × 1.20 (+20% contingency). 1 SP = 7h (org standard). All estimates should be reviewed with the delivery team before commitment.
+      ⚠ Estimates are indicative based on standard complexity reference points. Effective Hours = Total hrs x (8/6) — accounts for 6 productive hours per 8-hour working day. Est. Days = Effective Hours / 8. All estimates should be reviewed with the delivery team before commitment.
     </div>
   </div>`;
   document.getElementById('report-modal').classList.remove('hidden');
@@ -2337,11 +2179,7 @@ function copyReportText(){
   const req=getActiveReq();if(!req)return;
   const rows=req.rows;
   const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0);
-  const eff=Math.round(tot*(8/PROD_HRS)*10)/10;
-  const buf=Math.round(eff*1.20*10)/10;
-  const cap=calcCapacity(req,eff);const capBuf=calcCapacity(req,buf);
-  const blocked=rows.filter(r=>r.blockers&&r.blockers.trim());
-  const txt=`EFFORT ESTIMATION REPORT\n========================\nRequirement : ${req.name}\nEpic        : ${req.epic||'—'}\nProject     : ${req.projName||'—'}\nSprint      : ${req.sprint||'—'}\nPrepared By : ${req.preparedBy||'—'}\nDate        : ${req.date||'—'}\nPriority    : ${req.priority||'—'}\n\nSUMMARY\nDev Hours      : ${dev}\nQA Hours       : ${qa}\nUAT Hours      : ${uat}\nTotal Hours    : ${tot}\nEffective Hrs  : ${eff}  (Total × 8÷7, 7 productive hrs/day)\nBuffered Hrs   : ${buf}  (Eff. × 1.20, 20% contingency)\nSprint Cap.    : 56h/sprint (standard: 10 days × 7h × 80% availability)\nSprints Needed : ${cap.sprintsNeeded} (estimate) / ${capBuf.sprintsNeeded} (with buffer)\nStory Points   : ${pts}  (1 SP = ${SP_TO_HOURS}h)\nSP Hours       : ${pts*SP_TO_HOURS}h\nEst. Days      : ${Math.ceil(eff/8)}\nBlocked Tasks  : ${blocked.length} of ${rows.length}\nTasks          : ${rows.length}\n${blocked.length?'\nBLOCKERS\n'+blocked.map(r=>`  [${r.key}] ${r.desc}: ${r.blockers}`).join('\n'):''}\n\nDETAILED TASKS\n${rows.map((r,i)=>`${i+1}. [${r.key}] ${r.desc}\n   Category: ${r.catLabel||r.type||'—'} | Complexity: ${r.severity||'—'}${r.tag?' | Tag: '+r.tag:''}\n   Team: ${r.team||'—'} | Dev: ${r.dev}h | QA: ${r.qa}h | UAT: ${r.uat}h | Total: ${r.dev+r.qa+r.uat}h | Pts: ${r.pts}${r.blockers?' | BLOCKER: '+r.blockers:''}`).join('\n\n')}`;
+  const txt=`EFFORT ESTIMATION REPORT\n========================\nRequirement : ${req.name}\nEpic        : ${req.epic||'—'}\nProject     : ${req.projName||'—'}\nSprint      : ${req.sprint||'—'}\nPrepared By : ${req.preparedBy||'—'}\nDate        : ${req.date||'—'}\nPriority    : ${req.priority||'—'}\n\nSUMMARY\nDev Hours      : ${dev}\nQA Hours       : ${qa}\nUAT Hours      : ${uat}\nTotal Hours    : ${tot}\nEffective Hrs  : ${Math.round(tot*(8/6)*10)/10}\nStory Points   : ${pts}\nTasks          : ${rows.length}\nEst. Days      : ${Math.ceil(Math.round(tot*(8/6)*10)/10/8)}\n\nDETAILED TASKS\n${rows.map((r,i)=>`${i+1}. [${r.key}] ${r.desc}\n   Category: ${r.catLabel||r.type||'—'} | Change: ${r.change||'—'} | Complexity: ${r.severity||'—'}\n   Team: ${r.team||'—'} | Dev: ${r.dev}h | QA: ${r.qa}h | UAT: ${r.uat}h | Total: ${r.dev+r.qa+r.uat}h | Pts: ${r.pts}`).join('\n\n')}`;
   navigator.clipboard.writeText(txt).catch(()=>{});
   toast('📋 Report text copied!');
 }
@@ -2353,7 +2191,7 @@ function downloadReportImage(){
   btn.textContent='⏳ Generating…';btn.disabled=true;
 
   const rows=req.rows;
-  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/PROD_HRS)*10)/10;
+  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/6)*10)/10;
   const pc=req.priority==='High'?'#f43f5e':req.priority==='Medium'?'#f59e0b':'#22d3a5';
   const catMap={};rows.forEach(r=>{const k=r.catLabel||r.type||'Other';if(!catMap[k]){catMap[k]={dev:0,qa:0,uat:0,tot:0,pts:0};}catMap[k].dev+=Number(r.dev||0);catMap[k].qa+=Number(r.qa||0);catMap[k].uat+=Number(r.uat||0);catMap[k].tot+=Number(r.dev||0)+Number(r.qa||0)+Number(r.uat||0);catMap[k].pts+=Number(r.pts||0);});
   const teamMap={};rows.forEach(r=>{(r.team||'—').split('/').map(t=>t.trim()).forEach(t=>{if(t==='—')return;teamMap[t]=(teamMap[t]||0)+1;});});
@@ -2455,7 +2293,7 @@ function printReport(){
   if(!content||!content.innerHTML.trim()){toast('Generate the report first.');return;}
 
   const rows=req.rows;
-  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/PROD_HRS)*10)/10;
+  const dev=rows.reduce((s,r)=>s+Number(r.dev||0),0),qa=rows.reduce((s,r)=>s+Number(r.qa||0),0),uat=rows.reduce((s,r)=>s+Number(r.uat||0),0),tot=dev+qa+uat,pts=rows.reduce((s,r)=>s+Number(r.pts||0),0),eff=Math.round(tot*(8/6)*10)/10;
   const pc=req.priority==='High'?'#f43f5e':req.priority==='Medium'?'#f59e0b':'#22d3a5';
   const catMap={};rows.forEach(r=>{const k=r.catLabel||r.type||'Other';if(!catMap[k]){catMap[k]={dev:0,qa:0,uat:0,tot:0,pts:0};}catMap[k].dev+=Number(r.dev||0);catMap[k].qa+=Number(r.qa||0);catMap[k].uat+=Number(r.uat||0);catMap[k].tot+=Number(r.dev||0)+Number(r.qa||0)+Number(r.uat||0);catMap[k].pts+=Number(r.pts||0);});
   const teamMap={};rows.forEach(r=>{(r.team||'—').split('/').map(t=>t.trim()).forEach(t=>{if(t==='—')return;teamMap[t]=(teamMap[t]||0)+1;});});
@@ -2568,10 +2406,10 @@ function openConsolidated(){
         <div class="grand-kpi"><div class="v" style="color:var(--green)">${allQa}</div><div class="l">QA Hrs</div></div>
         <div class="grand-kpi"><div class="v" style="color:var(--yellow)">${allUat}</div><div class="l">UAT Hrs</div></div>
         <div class="grand-kpi"><div class="v" style="color:#fff">${allTot}</div><div class="l">Total Hrs</div></div>
-        <div class="grand-kpi"><div class="v" style="color:var(--muted)">${Math.round(allTot*(8/PROD_HRS)*10)/10}</div><div class="l">Eff. Hrs</div></div>
+        <div class="grand-kpi"><div class="v" style="color:var(--muted)">${Math.round(allTot*(8/6)*10)/10}</div><div class="l">Eff. Hrs</div></div>
         <div class="grand-kpi"><div class="v" style="color:#a78bfa">${allPts}</div><div class="l">Pts</div></div>
         <div class="grand-kpi"><div class="v" style="color:var(--cyan)">${allTasks}</div><div class="l">Tasks</div></div>
-        <div class="grand-kpi"><div class="v" style="color:var(--green)">${Math.ceil(Math.round(allTot*(8/PROD_HRS)*10)/10/8)}</div><div class="l">Est. Days</div></div>
+        <div class="grand-kpi"><div class="v" style="color:var(--green)">${Math.ceil(Math.round(allTot*(8/6)*10)/10/8)}</div><div class="l">Est. Days</div></div>
       </div>
     </div>
     ${requirements.map(req=>{
@@ -2677,7 +2515,7 @@ function downloadConsolidatedImage(){
     <div style="background:#1e293b;border-radius:10px;padding:16px;margin-bottom:20px;">
       <div style="font-size:11px;font-weight:700;color:#94a3b8;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">📊 Grand Total Across All Requirements</div>
       <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;">
-        ${[['Dev Hrs',allDev,'#4f8ef7'],['QA Hrs',allQa,'#22d3a5'],['UAT Hrs',allUat,'#f59e0b'],['Total Hrs',allTot,'#6366f1'],['Eff. Hrs',Math.round(allTot*(8/PROD_HRS)*10)/10,'#94a3b8'],['Story Pts',allPts,'#a78bfa'],['Tasks',allTasks,'#06b6d4'],['Est. Days',Math.ceil(Math.round(allTot*(8/PROD_HRS)*10)/10/8),'#22d3a5']].map(([l,v,c])=>`<div style="text-align:center;"><div style="font-size:22px;font-weight:800;color:${c};">${v}</div><div style="font-size:9px;color:#64748b;margin-top:2px;">${l}</div></div>`).join('')}
+        ${[['Dev Hrs',allDev,'#4f8ef7'],['QA Hrs',allQa,'#22d3a5'],['UAT Hrs',allUat,'#f59e0b'],['Total Hrs',allTot,'#6366f1'],['Eff. Hrs',Math.round(allTot*(8/6)*10)/10,'#94a3b8'],['Story Pts',allPts,'#a78bfa'],['Tasks',allTasks,'#06b6d4'],['Est. Days',Math.ceil(Math.round(allTot*(8/6)*10)/10/8),'#22d3a5']].map(([l,v,c])=>`<div style="text-align:center;"><div style="font-size:22px;font-weight:800;color:${c};">${v}</div><div style="font-size:9px;color:#64748b;margin-top:2px;">${l}</div></div>`).join('')}
       </div>
     </div>
     ${reqBlocks}
@@ -3302,9 +3140,9 @@ function openUserGuide(){
           </div>
           <div class="mock-card fe">
             <div class="mock-card-top"><span class="mock-card-key">FE-014</span><span class="mock-chip mock-chip-L">Low</span></div>
-            <div class="mock-card-title">Authentication Flow – Login Integration</div>
+            <div class="mock-card-title">Authentication Flow – Habile Integration</div>
             <div class="mock-card-sub">Frontend (Angular) · Authentication</div>
-            <div class="mock-card-meta"><span class="mock-chip mock-chip-hrs">19h</span><span class="mock-chip mock-chip-pts">3 pts</span><span class="mock-chip mock-chip-team">Security / Login</span></div>
+            <div class="mock-card-meta"><span class="mock-chip mock-chip-hrs">19h</span><span class="mock-chip mock-chip-pts">3 pts</span><span class="mock-chip mock-chip-team">Security / Habile</span></div>
             <div class="mock-card-add">＋</div>
           </div>
         </div>
@@ -4087,7 +3925,7 @@ function openUserGuide(){
     <tr style="background:#fdf4ff;"><td><strong>★ FE-011</strong></td><td><strong>New Widget – Simple Table (No Visualisation)</strong></td><td>Medium</td><td style="text-align:right">36h</td><td style="text-align:right">5</td></tr>
     <tr style="background:#fdf4ff;"><td><strong>★ FE-012</strong></td><td><strong>New Widget – Table with Data Visualisation</strong></td><td>High</td><td style="text-align:right">64h</td><td style="text-align:right">8</td></tr>
     <tr><td>FE-013</td><td>Modify Existing Component</td><td>Low</td><td style="text-align:right">19h</td><td style="text-align:right">3</td></tr>
-    <tr><td>FE-014</td><td>Authentication Flow – Login Integration</td><td>Low</td><td style="text-align:right">19h</td><td style="text-align:right">3</td></tr>
+    <tr><td>FE-014</td><td>Authentication Flow – Habile Integration</td><td>Low</td><td style="text-align:right">19h</td><td style="text-align:right">3</td></tr>
   </tbody></table>
 
   <h3 style="color:#22d3a5;">💚 Backend Spring Boot (BE) — 13 tasks</h3>
@@ -4097,7 +3935,7 @@ function openUserGuide(){
     <tr style="background:#fdf4ff;"><td><strong>★ BE-003</strong></td><td><strong>New Business Logic Service</strong></td><td>Medium</td><td style="text-align:right">36h → 42h*</td><td style="text-align:right">5</td></tr>
     <tr><td>BE-004</td><td>Complex Microservice API</td><td>High</td><td style="text-align:right">64h</td><td style="text-align:right">8</td></tr>
     <tr><td>BE-005</td><td>Microservice with Kafka/MQ Messaging</td><td>Very High</td><td style="text-align:right">112h</td><td style="text-align:right">13</td></tr>
-    <tr><td>BE-006</td><td>Authentication &amp; Authorisation – Login Integration</td><td>Medium</td><td style="text-align:right">32h</td><td style="text-align:right">5</td></tr>
+    <tr><td>BE-006</td><td>Authentication &amp; Authorisation – Habile Integration</td><td>Medium</td><td style="text-align:right">32h</td><td style="text-align:right">5</td></tr>
     <tr><td>BE-007</td><td>Minor API Response Modification</td><td>Low</td><td style="text-align:right">10h</td><td style="text-align:right">2</td></tr>
     <tr><td>BE-008</td><td>Modify Service with DB Impact</td><td>Medium</td><td style="text-align:right">28h</td><td style="text-align:right">5</td></tr>
     <tr><td>BE-009</td><td>Major Microservice Refactoring</td><td>High</td><td style="text-align:right">52h</td><td style="text-align:right">8</td></tr>
@@ -4251,350 +4089,7 @@ function openUserGuide(){
   modal.classList.remove('hidden');
 }
 
-
-// ================================================================
-// SPRINT CAPACITY CALCULATOR
-// ================================================================
-function calcCapacity(req, effHours) {
-  // Standard sprint: 10 working days × 7 productive hrs × 80% availability = 56h
-  const SPRINT_HRS  = 56;
-  const sprintsNeeded = Math.ceil(effHours / SPRINT_HRS);
-  const pct   = Math.round(effHours / SPRINT_HRS * 100);
-  const fits  = effHours <= SPRINT_HRS;
-  return { sprintHours: SPRINT_HRS, sprintsNeeded, pct, fits };
-}
-
-// ================================================================
-// CONFIDENCE SCORE
-// ================================================================
-function calcConfidence(rows, req) {
-  if (!rows.length) return 0;
-  let score = 100;
-  const blocked   = rows.filter(r => r.blockers && r.blockers.trim()).length;
-  const highComp  = rows.filter(r => r.severity === 'High' || r.severity === 'Very High').length;
-  const customTasks = rows.filter(r => r.isCustom).length;
-  const incomplete = (!req.sprint || !req.preparedBy) ? 1 : 0;
-  score -= blocked    * 8;   // -8% per blocked task
-  score -= highComp   * 4;   // -4% per High/Very High complexity
-  score -= customTasks * 3;  // -3% per unvalidated custom task
-  score -= incomplete * 5;   // -5% if key fields not filled
-  return Math.max(10, Math.min(100, Math.round(score)));
-}
-
-function updateConfidenceUI(score) {
-  const wrap = document.getElementById('confidence-wrap');
-  const bar  = document.getElementById('conf-bar');
-  const pct  = document.getElementById('conf-pct');
-  const lbl  = document.getElementById('conf-label');
-  if (!wrap) return;
-  wrap.style.display = 'block';
-  const col = score >= 80 ? 'var(--green)' : score >= 55 ? 'var(--yellow)' : 'var(--red)';
-  if (bar) { bar.style.width = score + '%'; bar.style.background = col; }
-  if (pct) { pct.textContent = score + '%'; pct.style.color = col; }
-  if (lbl) {
-    lbl.textContent = score >= 80
-      ? 'High — estimate is solid'
-      : score >= 55
-      ? 'Medium — review complex tasks'
-      : 'Low — resolve blockers first';
-  }
-}
-
-// ================================================================
-// VELOCITY ESTIMATOR
-// ================================================================
-function updateVelocity() {
-  const req  = getActiveReq();
-  const el   = document.getElementById('velocity-result');
-  if (!el || !req) return;
-  const rows = req.rows || [];
-  if (!rows.length) { el.innerHTML = '<span style="color:var(--muted);">Add tasks to see sprint breakdown</span>'; return; }
-  const tot  = rows.reduce((s,r)=>s+Number(r.dev||0)+Number(r.qa||0)+Number(r.uat||0),0);
-  const eff  = Math.round(tot*(8/PROD_HRS)*10)/10;
-  const buf  = Math.round(eff*1.20*10)/10;
-  const pts  = rows.reduce((s,r)=>s+Number(r.pts||0),0);
-  const cap  = calcCapacity(req, eff);
-  const capBuf = calcCapacity(req, buf);
-  el.innerHTML = `
-    <div style="margin-bottom:6px;">
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:2px;">
-        <span style="color:var(--text2);">Eff. hours</span>
-        <span style="font-weight:700;color:var(--text);">${eff}h</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:2px;">
-        <span style="color:var(--text2);">Buffered (+20%)</span>
-        <span style="font-weight:700;color:var(--yellow);">${buf}h</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:2px;">
-        <span style="color:var(--text2);">Sprint capacity</span>
-        <span style="font-weight:700;color:var(--accent);">${cap.sprintHours}h</span>
-      </div>
-    </div>
-    <div style="background:var(--accent)18;border:1px solid var(--accent)44;border-radius:7px;padding:8px 10px;text-align:center;margin-bottom:5px;">
-      <div style="font-size:1rem;font-weight:800;color:var(--accent);">${cap.sprintsNeeded} sprint${cap.sprintsNeeded!==1?'s':''}</div>
-      <div style="font-size:0.65rem;color:var(--muted);">at current estimate</div>
-    </div>
-    <div style="background:var(--yellow)12;border:1px solid var(--yellow)33;border-radius:7px;padding:7px 10px;text-align:center;">
-      <div style="font-size:0.85rem;font-weight:800;color:var(--yellow);">${capBuf.sprintsNeeded} sprint${capBuf.sprintsNeeded!==1?'s':''}</div>
-      <div style="font-size:0.65rem;color:var(--muted);">with 20% risk buffer</div>
-    </div>`;
-}
-
-// ================================================================
-// COMMIT SNAPSHOT
-// ================================================================
-function openCommitSnapshot() {
-  const req = getActiveReq();
-  if (!req) { toast('Select a requirement first.', 'warn'); return; }
-  const rows = req.rows;
-  if (!rows.length) { toast('Add tasks before generating a snapshot.', 'warn'); return; }
-
-  const dev  = rows.reduce((s,r) => s + Number(r.dev||0), 0);
-  const qa   = rows.reduce((s,r) => s + Number(r.qa||0),  0);
-  const uat  = rows.reduce((s,r) => s + Number(r.uat||0), 0);
-  const tot  = dev + qa + uat;
-  const pts  = rows.reduce((s,r) => s + Number(r.pts||0), 0);
-  const eff  = Math.round(tot * (8/PROD_HRS) * 10) / 10;
-  const buf  = Math.round(eff * 1.20 * 10) / 10;
-  const days = Math.ceil(eff / 8);
-  const cap  = calcCapacity(req, eff);
-  const capBuf = calcCapacity(req, buf);
-  const conf = calcConfidence(rows, req);
-  const blockedRows = rows.filter(r => r.blockers && r.blockers.trim());
-  const today = new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
-
-  const pc      = req.priority === 'High' ? '#f43f5e' : req.priority === 'Medium' ? '#f5a623' : '#22d3a5';
-  const confCol = conf >= 80 ? 'var(--green)' : conf >= 55 ? 'var(--yellow)' : 'var(--red)';
-  const fitCol  = cap.fits ? '#22d3a5' : cap.pct > 150 ? '#f43f5e' : '#f5a623';
-  const fitTxt  = cap.fits ? '✓ Fits 1 sprint' : `⚡ ~${cap.sprintsNeeded} sprint${cap.sprintsNeeded!==1?'s':''}`;
-
-  const catRows = [...new Set(rows.map(r => r.cat||'Custom'))].map(cat => {
-    const catR = rows.filter(r => (r.cat||'Custom') === cat);
-    const cTot = catR.reduce((s,r) => s + r.dev + r.qa + r.uat, 0);
-    const cPts = catR.reduce((s,r) => s + Number(r.pts||0), 0);
-    const col  = CAT_COLORS[cat] || '#64748b';
-    return `<div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:5px 0;border-bottom:1px solid var(--border)22;">
-      <span style="color:${col};font-weight:600;">${escHtml(catR[0]?.catLabel||cat)}</span>
-      <span style="font-family:'DM Mono',monospace;color:var(--text2);">${cTot}h · ${cPts}pts · ${catR.length} task${catR.length!==1?'s':''}</span>
-    </div>`;
-  }).join('');
-
-  const blockerHTML = blockedRows.length
-    ? blockedRows.slice(0, 3).map(r =>
-        `<div style="padding:5px 0;border-bottom:1px solid var(--red)22;font-size:0.73rem;">
-          <span style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.65rem;">[${escHtml(r.key||'—')}]</span> ${escHtml(r.desc)}<br/>
-          <span style="color:var(--red);">⚠ ${escHtml(r.blockers)}</span>
-        </div>`).join('') +
-        (blockedRows.length > 3 ? `<div style="font-size:0.68rem;color:var(--muted);padding-top:4px;">+${blockedRows.length-3} more — see full report</div>` : '')
-    : '<div style="font-size:0.75rem;color:var(--green);">✓ No blockers identified</div>';
-
-  const kpis = [
-    ['Total Hours',    tot+'h',             '#fff'],
-    ['Eff. Hours',     eff+'h',             'var(--muted)'],
-    ['Buffered',       buf+'h',             '#f5a623'],
-    ['Story Points',   pts+'pts',           '#a78bfa'],
-    ['SP Hours (×7h)', (pts*SP_TO_HOURS)+'h','#a78bfa'],
-    ['Est. Days',      days+'d',            '#22d3a5'],
-  ].map(([l,v,c]) => `<div style="padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;background:var(--surface2);">
-    <div style="font-size:1.15rem;font-weight:800;color:${c};font-family:'DM Mono',monospace;">${v}</div>
-    <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px;">${l}</div>
-  </div>`).join('');
-
-  document.getElementById('snapshot-content').innerHTML = `
-  <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-    <div style="background:linear-gradient(135deg,#0a1428,#0f1e3a);padding:20px 24px;">
-      <div style="font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:4px;">Sprint Commitment Snapshot · ${today}</div>
-      <div style="font-size:1.3rem;font-weight:800;margin-bottom:6px;">${escHtml(req.name)}</div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:0.72rem;color:var(--text2);">
-        ${req.projName?`<span>📁 ${escHtml(req.projName)}</span>`:''}
-        ${req.sprint?`<span>🔄 ${escHtml(req.sprint)}</span>`:''}
-        ${req.preparedBy?`<span>👤 ${escHtml(req.preparedBy)}</span>`:''}
-        <span style="color:${pc};font-weight:700;">${req.priority} Priority</span>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);">${kpis}</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);">
-      <div style="padding:14px 16px;border-right:1px solid var(--border);text-align:center;">
-        <div style="font-size:1.4rem;font-weight:800;color:${confCol};">${conf}%</div>
-        <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px;">Confidence</div>
-        <div style="font-size:0.65rem;color:${confCol};margin-top:3px;">${conf>=80?'High':conf>=55?'Medium':'Low'}</div>
-      </div>
-      <div style="padding:14px 16px;border-right:1px solid var(--border);text-align:center;">
-        <div style="font-size:1.4rem;font-weight:800;color:${fitCol};">${fitTxt.split(' ')[0]}</div>
-        <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px;">Sprint Fit</div>
-        <div style="font-size:0.65rem;color:${fitCol};margin-top:3px;">${fitTxt} (Dev ${cap.devPct}% · QA ${cap.qaPct}%)</div>
-      </div>
-      <div style="padding:14px 16px;text-align:center;">
-        <div style="font-size:1.4rem;font-weight:800;color:var(--accent);">${cap.sprintsNeeded}</div>
-        <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:2px;">Sprint${cap.sprintsNeeded!==1?'s':''} (estimate)</div>
-        <div style="font-size:0.65rem;color:var(--yellow);margin-top:3px;">${capBuf.sprintsNeeded} sprint${capBuf.sprintsNeeded!==1?'s':''} w/ buffer</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);">
-      <div style="padding:14px 16px;border-right:1px solid var(--border);">
-        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;">Team &amp; Capacity</div>
-        <div style="font-size:0.75rem;color:var(--text2);line-height:2.1;">
-          <div>📅 Sprint capacity: <strong style="color:var(--accent);">56h</strong> · 10-day sprint · 7h/day · 80% availability</div>
-          <div>⚡ Sprint capacity: <strong style="color:var(--accent);">${cap.sprintHours}h</strong> productive hours</div>
-          <div>🔄 Sprints needed: <strong style="color:${cap.fits?'var(--green)':'var(--yellow)'};">${cap.sprintsNeeded}</strong> sprint${cap.sprintsNeeded!==1?'s':''}</div>
-        </div>
-        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:12px 0 8px;">By Category</div>
-        ${catRows}
-      </div>
-      <div style="padding:14px 16px;">
-        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${blockedRows.length?'var(--red)':'var(--muted)'};margin-bottom:8px;">${blockedRows.length?'⚠ Blockers ('+blockedRows.length+')':'Blockers'}</div>
-        ${blockerHTML}
-        <div style="margin-top:16px;padding:12px;background:var(--surface2);border:1px dashed var(--border);border-radius:8px;">
-          <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;">Sign-off</div>
-          <div style="font-size:0.75rem;color:var(--text2);line-height:2.2;">
-            <div>Engineering Lead: ___________________</div>
-            <div>Product Owner:    ___________________</div>
-            <div>Date committed:   ___________________</div>
-          </div>
-        </div>
-        <div style="margin-top:10px;font-size:0.63rem;color:var(--muted);line-height:1.6;">
-          Eff. Hours = Total × (8÷7) · Buffer = Eff. × 1.20 · 1 SP = ${SP_TO_HOURS}h · Est. Days = Eff. ÷ 8
-        </div>
-      </div>
-    </div>
-  </div>`;
-  document.getElementById('snapshot-modal').classList.remove('hidden');
-}
-
-function printSnapshot() {
-  const content = document.getElementById('snapshot-content')?.innerHTML || '';
-  const w = window.open('', '_blank', 'width=780,height=900');
-  w.document.write('<html><head><title>Sprint Commitment Snapshot</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:"DM Sans","Segoe UI",sans-serif;background:#080d18;color:#dde4f0;padding:16px;}</style></head><body>' + content + '<scr' + 'ipt>window.onload=function(){window.print();window.onafterprint=function(){window.close();};};<\/script></body></html>');
-  w.document.close();
-}
-
-
-// ── Sort Rows ────────────────────────────────────────────────────────────────
-function sortRows(mode) {
-  const req = getActiveReq(); if(!req) return;
-  const sevMap = {'Very Low':0,'Low':1,'Medium':2,'High':3,'Very High':4};
-  if(mode === 'original') {
-    // restore by key prefix natural order
-    req.rows.sort((a,b)=>{
-      const ak=a.key||'';const bk=b.key||'';return ak.localeCompare(bk);
-    });
-  } else if(mode === 'complexity') {
-    req.rows.sort((a,b)=>(sevMap[b.severity]||2)-(sevMap[a.severity]||2));
-  } else if(mode === 'pts') {
-    req.rows.sort((a,b)=>Number(b.pts||0)-Number(a.pts||0));
-  } else if(mode === 'hours') {
-    req.rows.sort((a,b)=>(b.dev+b.qa+b.uat)-(a.dev+a.qa+a.uat));
-  } else if(mode === 'tag') {
-    req.rows.sort((a,b)=>(a.tag||'zzz').localeCompare(b.tag||'zzz'));
-  } else if(mode === 'cat') {
-    req.rows.sort((a,b)=>(a.cat||'').localeCompare(b.cat||''));
-  }
-  renderTable(); updateSummary();
-  toast('Sorted by '+mode);
-}
-
-
-// ── Sprint Breakdown Panel ───────────────────────────────────────────────────
-function updateSprintBreakdown() {
-  const el = document.getElementById('sprint-breakdown-panel');
-  if (!el) return;
-  const req  = getActiveReq();
-  if (!req || !req.rows.length) { el.innerHTML='<span style="color:var(--muted);font-size:0.75rem;">Add tasks to see sprint breakdown</span>'; return; }
-
-  const spCap = 56; // standard sprint: 10 days × 7h × 80% availability
-
-  // Assign each task to a sprint bucket by its eff hours
-  const sprints = [];
-  let currentSprint = { num:1, tasks:[], hours:0 };
-  req.rows.forEach(r => {
-    const rEff = Math.round((r.dev + r.qa + r.uat) * (8/PROD_HRS) * 10) / 10;
-    if (currentSprint.hours + rEff > spCap && currentSprint.tasks.length > 0) {
-      sprints.push(currentSprint);
-      currentSprint = { num: currentSprint.num + 1, tasks:[], hours:0 };
-    }
-    currentSprint.tasks.push({...r, rEff});
-    currentSprint.hours = Math.round((currentSprint.hours + rEff) * 10) / 10;
-  });
-  if (currentSprint.tasks.length) sprints.push(currentSprint);
-
-  el.innerHTML = sprints.map(function(sp) {
-    const pct = Math.round(sp.hours / spCap * 100);
-    const col = pct <= 90 ? 'var(--green)' : pct <= 100 ? 'var(--yellow)' : 'var(--red)';
-    const taskRows = sp.tasks.map(function(t) {
-      const tCol = CAT_COLORS[t.cat] || '#64748b';
-      const tDesc = escHtml(t.desc.length > 28 ? t.desc.slice(0,28) + '…' : t.desc);
-      const tTitle = escHtml(t.desc);
-      return '<div style="display:flex;align-items:center;gap:5px;padding:2px 0;font-size:0.68rem;border-bottom:1px solid var(--border)22;">'
-        + '<span style="color:'+tCol+';flex-shrink:0;font-size:0.6rem;">●</span>'
-        + '<span style="flex:1;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="'+tTitle+'">'+tDesc+'</span>'
-        + '<span style="color:var(--muted);flex-shrink:0;">'+t.rEff+'h</span>'
-        + '</div>';
-    }).join('');
-    return '<div style="margin-bottom:10px;">'
-      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
-      + '<span style="font-size:0.72rem;font-weight:700;color:var(--text);">Sprint '+sp.num+'</span>'
-      + '<span style="font-size:0.68rem;font-family:var(--mono);color:'+col+';">'+sp.hours+'h / '+spCap+'h ('+pct+'%)</span>'
-      + '</div>'
-      + '<div style="background:var(--surface3);border-radius:3px;height:4px;overflow:hidden;margin-bottom:5px;">'
-      + '<div style="width:'+Math.min(pct,100)+'%;height:100%;background:'+col+';border-radius:3px;"></div>'
-      + '</div>'
-      + taskRows
-      + '</div>';
-  }).join('');
-}
-
-
-// ── Risk chip helper (avoids nested template literal issues) ─────────────
-
-// ── Tag section helper (avoids nested template literals in report) ────────────
-function getTagSection(rows) {
-  const taggedRows = rows.filter(r => r.tag && r.tag.trim());
-  if (!taggedRows.length) return '';
-  const tagMap = {};
-  taggedRows.forEach(r => {
-    const t = r.tag.trim();
-    if (!tagMap[t]) tagMap[t] = {tasks:[], dev:0, qa:0, uat:0, pts:0};
-    tagMap[t].tasks.push(r);
-    tagMap[t].dev += r.dev; tagMap[t].qa += r.qa; tagMap[t].uat += r.uat;
-    tagMap[t].pts += Number(r.pts||0);
-  });
-  const tagColors = ['#4f8ef7','#22d3a5','#f5a623','#a78bfa','#f43f5e','#06b6d4','#e879f9','#fb923c'];
-  const entries   = Object.entries(tagMap);
-  let h = '<div class="report-section">';
-  h += '<h3>\uD83C\uDFF7\uFE0F Task Groups (by Tag) '+tip("Task Groups","Tasks grouped by the tag you assigned. Useful for separating Phase 1 / Phase 2, MVP / Nice-to-have, or any custom grouping.","tag field per task")+'</h3>';
-  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">';
-  entries.forEach(function([tag, d], i) {
-    const col    = tagColors[i % tagColors.length];
-    const tagTot = d.dev + d.qa + d.uat;
-    h += '<div style="background:var(--surface2);border:1px solid '+col+'33;border-radius:8px;padding:12px 14px;">';
-    h += '<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">';
-    h += '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';flex-shrink:0;"></span>';
-    h += '<span style="font-weight:700;color:'+col+';font-size:0.82rem;">'+escHtml(tag)+'</span>';
-    h += '</div>';
-    h += '<div style="font-size:0.72rem;color:var(--text2);line-height:1.9;">';
-    h += '<div>'+d.tasks.length+' task'+(d.tasks.length!==1?'s':'')+' &middot; '+d.pts+'pts</div>';
-    h += '<div>Dev: '+d.dev+'h &middot; QA: '+d.qa+'h &middot; UAT: '+d.uat+'h</div>';
-    h += '<div style="font-weight:700;color:var(--text);">Total: '+tagTot+'h</div>';
-    h += '</div></div>';
-  });
-  h += '</div></div>';
-  return h;
-}
-
-function getRiskChip(severity, blockers) {
-  const hasB = blockers && blockers.trim();
-  const sev  = severity || 'Low';
-  let risk, col;
-  if      (sev === 'Very High' && hasB) { risk = 'Critical'; col = '#f43f5e'; }
-  else if (sev === 'Very High')          { risk = 'High';     col = '#fb923c'; }
-  else if (sev === 'High' && hasB)       { risk = 'High';     col = '#fb923c'; }
-  else if (sev === 'High')               { risk = 'Med';      col = '#f5a623'; }
-  else if (sev === 'Medium' && hasB)     { risk = 'Med';      col = '#f5a623'; }
-  else                                   { risk = 'Low';      col = '#22d3a5'; }
-  return '<span style="background:'+col+'22;color:'+col+';border:1px solid '+col+'44;border-radius:4px;padding:2px 6px;font-size:0.62rem;font-weight:700;white-space:nowrap;">'+risk+'</span>';
-}
-
-function closeAllModals(){['new-req-modal','export-modal','report-modal','consolidated-modal','team-effort-modal','guide-modal','history-modal','snapshot-modal'].forEach(id=>document.getElementById(id).classList.add('hidden'));}
+function closeAllModals(){['new-req-modal','export-modal','report-modal','consolidated-modal','team-effort-modal','guide-modal','history-modal'].forEach(id=>document.getElementById(id).classList.add('hidden'));}
 document.querySelectorAll('.modal-overlay').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)closeAllModals();});});
 
 // Live hours total preview in custom task form
